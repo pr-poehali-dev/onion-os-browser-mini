@@ -4,125 +4,135 @@
 
 @layer base {
   :root {
-    --background: 220 14% 10%;
-    --foreground: 210 20% 88%;
+    --background: 220 16% 8%;
+    --foreground: 210 15% 85%;
 
-    --card: 220 14% 13%;
-    --card-foreground: 210 20% 88%;
+    --card: 220 16% 11%;
+    --card-foreground: 210 15% 85%;
 
-    --popover: 220 14% 13%;
-    --popover-foreground: 210 20% 88%;
+    --popover: 220 16% 11%;
+    --popover-foreground: 210 15% 85%;
 
-    --primary: 0 75% 52%;
+    --primary: 0 72% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 12% 18%;
-    --secondary-foreground: 210 20% 75%;
+    --secondary: 220 14% 16%;
+    --secondary-foreground: 210 15% 70%;
 
-    --muted: 220 12% 16%;
-    --muted-foreground: 215 12% 52%;
+    --muted: 220 14% 14%;
+    --muted-foreground: 215 10% 48%;
 
-    --accent: 0 75% 52%;
+    --accent: 0 72% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 40%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 12% 20%;
-    --input: 220 12% 18%;
-    --ring: 0 75% 52%;
+    --border: 220 14% 18%;
+    --input: 220 14% 16%;
+    --ring: 0 72% 50%;
 
-    --radius: 0.3rem;
+    --radius: 2px;
 
-    --browser-toolbar: 220 14% 12%;
-    --browser-tab-bg: 220 14% 15%;
-    --browser-tab-active: 220 14% 10%;
-    --browser-tab-border: 220 12% 22%;
-    --browser-content: 220 14% 10%;
-    --browser-accent: 0 75% 52%;
-    --browser-accent-hover: 0 75% 45%;
-    --browser-text: 210 20% 88%;
-    --browser-text-muted: 215 12% 52%;
-    --browser-input: 220 12% 16%;
+    --ob-bg: 220 16% 8%;
+    --ob-surface: 220 16% 11%;
+    --ob-surface2: 220 14% 15%;
+    --ob-border: 220 14% 20%;
+    --ob-accent: 0 72% 50%;
+    --ob-accent2: 200 80% 55%;
+    --ob-text: 210 15% 85%;
+    --ob-muted: 215 10% 45%;
+    --ob-green: 142 60% 45%;
+    --ob-yellow: 45 90% 55%;
 
-    --sidebar-background: 220 14% 12%;
-    --sidebar-foreground: 210 20% 80%;
-    --sidebar-primary: 0 75% 52%;
+    --sidebar-background: 220 16% 11%;
+    --sidebar-foreground: 210 15% 75%;
+    --sidebar-primary: 0 72% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 12% 18%;
-    --sidebar-accent-foreground: 210 20% 88%;
-    --sidebar-border: 220 12% 20%;
-    --sidebar-ring: 0 75% 52%;
+    --sidebar-accent: 220 14% 16%;
+    --sidebar-accent-foreground: 210 15% 85%;
+    --sidebar-border: 220 14% 18%;
+    --sidebar-ring: 0 72% 50%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    width: 640px;
+    height: 480px;
+    overflow: hidden;
+    margin: 0 auto;
   }
 
   body {
     @apply bg-background text-foreground;
     font-family: "IBM Plex Sans", sans-serif;
-    font-size: 13px;
+    font-size: 11px;
+    line-height: 1.4;
   }
 
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 3px;
+    height: 3px;
   }
   ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+    background: hsl(var(--ob-bg));
   }
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground));
+    background: hsl(var(--ob-border));
+    border-radius: 2px;
   }
 }
 
 @layer utilities {
-  .animate-fade-in {
-    animation: fade-in 0.2s ease-out forwards;
+  .font-pixel {
+    font-family: "Press Start 2P", monospace;
   }
-  .animate-slide-down {
-    animation: slide-down 0.2s ease-out forwards;
+  .font-plex {
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+  .font-mono {
+    font-family: "IBM Plex Mono", monospace;
   }
 
-  @keyframes fade-in {
+  .ob-focused {
+    outline: 2px solid hsl(var(--ob-accent));
+    outline-offset: -1px;
+  }
+  .ob-focused-blue {
+    outline: 2px solid hsl(var(--ob-accent2));
+    outline-offset: -1px;
+  }
+
+  .animate-fade-in {
+    animation: ob-fade 0.15s ease-out forwards;
+  }
+  @keyframes ob-fade {
     from {
       opacity: 0;
-      transform: translateY(-4px);
+      transform: translateY(3px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  @keyframes slide-down {
-    from {
-      opacity: 0;
-      max-height: 0;
-    }
-    to {
-      opacity: 1;
-      max-height: 600px;
-    }
-  }
 
-  .tab-indicator {
-    position: relative;
-  }
-  .tab-indicator::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: hsl(var(--browser-accent));
-    border-radius: 1px 1px 0 0;
+  .scanline {
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.07) 2px,
+      rgba(0, 0, 0, 0.07) 4px
+    );
+    pointer-events: none;
   }
 }
